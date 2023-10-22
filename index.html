@@ -18,13 +18,18 @@
 
     <div class="end-game-container">
       <h1>GAME OVER</h1>
-      <p>Your score: <span></span></p>
-      <p>Your best score: <span></span></p>
-      <button id="restart">RESTART</button>
+      <p>Your score: <span>0</span></p>
+      <p>Your best score: <span>0</span></p>
+      <button class="button" id="restart">RESTART</button>
     </div>
 
 		<div class="game-container">
-			<canvas id="game" width="288" height="512"></canvas>
+			<canvas id="game" width="288" height="520"></canvas>
+      <div class="buttons-container">
+        <button class="button" id="easy-mode">EASY MODE</button>
+        <button class="button" id="medium-mode">MEDIUM MODE</button>
+        <button class="button" id="hard-mode">HARD MODE</button>
+      </div>
 		</div>
 	</body>
 </html>
