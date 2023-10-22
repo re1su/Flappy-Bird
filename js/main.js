@@ -20,13 +20,13 @@ const audio = new Audio()
 let birdXPos = 10
 let birdYPos = 150
 
-bird.src = './img/bird.png'
-bg.src = './img/flappy_bird_bg.png'
-fg.src = './img/flappy_bird_fg.png'
-pipeUp.src = './img/pipeUp.png'
-pipeBottom.src = './img/pipeBottom.png'
+bird.src = '../../img/bird.png'
+bg.src = '../../img/flappy_bird_bg.png'
+fg.src = '../../img/flappy_bird_fg.png'
+pipeUp.src = '../../img/pipeUp.png'
+pipeBottom.src = '../../img/pipeBottom.png'
 
-audio.src = '../audio/score.mp3'
+audio.src = '../../audio/score.mp3'
 
 pipe[0] = {
   x: canvas.width,
