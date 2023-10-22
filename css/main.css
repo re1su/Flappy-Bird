@@ -74,8 +74,8 @@ body {
   position: absolute;
   width: 250px;
   height: 200px;
-  background-color: #cf9898;
   display: none;
+  background-color: #cf9898;
   flex-direction: column;
   justify-content: center;
   align-items: center;

@@ -11,8 +11,10 @@ const bg = new Image()
 const fg = new Image()
 const pipeUp = new Image()
 const pipeBottom = new Image()
-let gap = 90
-let gravitation = 1.5
+let gap = 100
+let gravitation = 1.7
+let score = 0
+let hightScore = 0
 const audio = new Audio()
 
 let birdXPos = 10
@@ -36,21 +38,35 @@ easyMode.addEventListener('click', () => {
 })
 
 mediumMode.addEventListener('click', () => {
-  gap = 90
+  gap = 100
 })
 
 hardMode.addEventListener('click', () => {
-  gap = 70
+  gap = 75  
 })
 
-document.addEventListener('keydown', (event) => {
+document.addEventListener('keydown', jump)
+
+function jump() {
   if (event.code === 'Space') {
     birdYPos -= 35
   }
-})
+}
 
 restartBtn.addEventListener('click', () => {
-  document.location.reload()
+  score = 0
+  birdXPos = 10
+  birdYPos = 150
+
+  pipe.length = 0
+  pipe[0] = {
+    x: canvas.width,
+    y: 0
+  }
+
+  document.querySelector('.end-game-container').style.display = 'none'
+  document.addEventListener('keydown', jump)
+  requestAnimationFrame(loop)
 })
 
 function loop() {
@@ -59,15 +75,17 @@ function loop() {
   ctx.drawImage(bird, birdXPos, birdYPos)
   
   for (let i = 0; i < pipe.length; i++) {
+    // drawing pipes
     ctx.drawImage(pipeUp,  pipe[i].x, pipe[i].y)
     ctx.drawImage(pipeBottom, pipe[i].x, pipe[i].y + pipeUp.height + gap)
 
-    pipe[i].x--
+    pipe[i].x -= 1
 
+    // add 1 random pipe every time the `i` pipe reaches 100
     if (pipe[i].x === 100) {
       pipe.push({
         x: canvas.width,
-        y: Math.floor(Math.random() * pipeUp.height - pipeUp.height)
+        y: Math.floor((Math.random() * pipeUp.height) - pipeUp.height)
       })
     }
 
@@ -75,8 +93,11 @@ function loop() {
     if (bird.width + birdXPos >= pipe[i].x &&
         birdXPos <= pipe[i].x + pipeUp.width &&
         (birdYPos <= pipe[i].y + pipeUp.height
-        || bird.height + birdYPos >= pipe[i].y + pipeUp.height + gap
-        || bird.height + birdYPos  >= canvas.height - fg.height)) {
+        || bird.height + birdYPos >= pipe[i].y + pipeUp.height + gap)
+        || bird.height + birdYPos >= canvas.height
+        || birdYPos <= 0) {
+
+      document.removeEventListener('keydown', jump)
       endGame()
       return
     }
@@ -84,6 +105,7 @@ function loop() {
     if (pipe[i].x === -20) {
       audio.volume = 0.15
       audio.play()
+      score++
     }
   }
 
@@ -94,11 +116,19 @@ function loop() {
     pipe.shift()
   }
 
+
   requestAnimationFrame(loop)
 }
 
 function endGame() {
+  let localStorageHighScore = +localStorage.getItem('highScore')
+  isNaN(localStorageHighScore) ? localStorageHighScore = 0 : localStorageHighScore
+  score > localStorageHighScore ? localStorageHighScore = score : localStorageHighScore
+  localStorage.setItem('highScore', JSON.stringify(localStorageHighScore))
+
   document.querySelector('.end-game-container').style.display = 'flex'
+  document.querySelector('#score').textContent = score
+  document.querySelector('#high-score').textContent = localStorage.getItem('highScore')
 }
 
 pipeBottom.onload = loop;
