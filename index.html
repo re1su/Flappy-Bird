@@ -1,11 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flappy Bird Game</title>
-</head>
-<body>
-  
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Flappy Bird Game</title>
+		<link rel="stylesheet" href="css/main.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
+		<script src="js/main.js" defer></script>
+	</head>
+	<body>
+
+    <div class="end-game-container">
+      <h1>GAME OVER</h1>
+      <p>Your score: <span></span></p>
+      <p>Your best score: <span></span></p>
+      <button id="restart">RESTART</button>
+    </div>
+
+		<div class="game-container">
+			<canvas id="game" width="288" height="512"></canvas>
+		</div>
+	</body>
 </html>
